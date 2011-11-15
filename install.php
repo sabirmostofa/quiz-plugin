@@ -19,7 +19,9 @@
 `thankyou_display_title` CHAR( 1 ) NOT NULL DEFAULT 'y',
 `thankyou2_display_title` CHAR( 1 ) NOT NULL DEFAULT 'y',
 `result_display_title` CHAR( 1 ) NOT NULL DEFAULT 'y',
-`skip_intro` CHAR( 1 ) NOT NULL DEFAULT 'n'
+`skip_intro` CHAR( 1 ) NOT NULL DEFAULT 'n',
+ key `status`(`status`),
+ key `page_id`(`page_id`)
 ) ENGINE = innodb;";
   $sql_question_table="CREATE TABLE `" . $wpdb->prefix . "quiz_questions` (
 `id` INT( 11 ) NOT NULL AUTO_INCREMENT PRIMARY KEY ,
@@ -28,7 +30,8 @@
 `type` CHAR( 1 ) NOT NULL ,
 `quiz_id` INT( 11 ) NOT NULL ,
 `display_order` INT( 11 ) NOT NULL ,
-`display_title` CHAR( 1 ) NOT NULL DEFAULT 'y'
+`display_title` CHAR( 1 ) NOT NULL DEFAULT 'y',
+  key `quiz_id`(`quiz_id`)
 ) ENGINE = innodb;";
   $sql_section_table="CREATE TABLE `" . $wpdb->prefix . "quiz_sections` (
 `id` INT( 11 ) NOT NULL AUTO_INCREMENT PRIMARY KEY ,
@@ -37,7 +40,8 @@
 `display_at_result` CHAR( 1 ) NOT NULL ,
 `quiz_id` INT( 11 ) NOT NULL ,
 `display_order` INT( 11 ) NOT NULL ,
-`display_title` CHAR( 1 ) NOT NULL DEFAULT 'y'
+`display_title` CHAR( 1 ) NOT NULL DEFAULT 'y',
+ key `quiz_id`(`quiz_id`)
 ) ENGINE = innodb;";
   $sql_badges_table="CREATE TABLE `" . $wpdb->prefix . "quiz_badges` (
 `id` INT( 11 ) NOT NULL AUTO_INCREMENT PRIMARY KEY ,
@@ -45,7 +49,8 @@
 `range_min` INT( 11 ) NOT NULL ,
 `range_max` INT( 11 ) NOT NULL ,
 `quiz_id` INT( 11 ) NOT NULL ,
-`meta_description` TEXT NOT NULL
+`meta_description` TEXT NOT NULL,
+ key `quiz_id`(`quiz_id`)
 ) ENGINE = innodb;";
  $sql_layouts_table="CREATE TABLE `" . $wpdb->prefix . "quiz_layouts` (
 `id` INT( 11 ) NOT NULL AUTO_INCREMENT PRIMARY KEY ,
@@ -57,7 +62,8 @@
 `use_at_question` CHAR( 1 ) NOT NULL ,
 `use_at_section` CHAR( 1 ) NOT NULL ,
 `use_at_optin` CHAR( 1 ) NOT NULL ,
-`use_at_result` CHAR( 1 ) NOT NULL
+`use_at_result` CHAR( 1 ) NOT NULL,
+ key `quiz_id`(`quiz_id`)
 ) ENGINE = innodb;";
 $sql_aweber_table="CREATE TABLE `" . $wpdb->prefix . "quiz_aweber` (
 `id` INT( 11 ) NOT NULL AUTO_INCREMENT PRIMARY KEY ,
@@ -69,7 +75,8 @@ $sql_aweber_table="CREATE TABLE `" . $wpdb->prefix . "quiz_aweber` (
 `submit_label` VARCHAR( 255 ) NOT NULL ,
 `content` TEXT NOT NULL ,
 `title` VARCHAR( 255 ) NOT NULL ,
-`display_title` CHAR( 1 ) NOT NULL DEFAULT 'y'
+`display_title` CHAR( 1 ) NOT NULL DEFAULT 'y',
+ key `quiz_id`(`quiz_id`)
 ) ENGINE = innodb;";
 
 $sql_answers_table="CREATE TABLE `" . $wpdb->prefix . "quiz_answers` (
@@ -77,7 +84,8 @@ $sql_answers_table="CREATE TABLE `" . $wpdb->prefix . "quiz_answers` (
 `question_id` INT( 11 ) NOT NULL ,
 `content` TEXT NOT NULL ,
 `response` TEXT NOT NULL ,
-`value` INT( 11 ) NOT NULL
+`value` INT( 11 ) NOT NULL,
+ key `question_id`(`question_id`)
 ) ENGINE = innodb;";
 
 $sql_results_table="CREATE TABLE `" . $wpdb->prefix . "quiz_results` (
@@ -88,14 +96,19 @@ $sql_results_table="CREATE TABLE `" . $wpdb->prefix . "quiz_results` (
 `lastname` VARCHAR( 100 ) NOT NULL ,
 `email` VARCHAR( 255 ) NOT NULL ,
 `resultkey` VARCHAR( 100 ) NOT NULL ,
-`numviews` INT( 11 ) NOT NULL DEFAULT '0'
+`numviews` INT( 11 ) NOT NULL DEFAULT '0',
+key `quiz_id`(`quiz_id`),
+key `email`(`email`),
+key `resultkey`(`resultkey`)
 ) ENGINE = innodb;
 ";
 $sql_results_data_table="CREATE TABLE `" . $wpdb->prefix . "quiz_results_data` (
 `id` INT( 11 ) NOT NULL AUTO_INCREMENT PRIMARY KEY ,
 `result_id` INT( 11 ) NOT NULL ,
 `question_id` INT( 11 ) NOT NULL ,
-`answer_id` INT( 11 ) NOT NULL
+`answer_id` INT( 11 ) NOT NULL,
+key `result_id`(`result_id`)
+
 ) ENGINE = innodb;";
 
 // check if post table has required field
