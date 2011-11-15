@@ -398,6 +398,16 @@
             $aweber->delete();
         // delete quiz
         $wpdb->query("DELETE FROM " . QUIZ_DB_TABLE_QUIZ . " WHERE id = $id ;");
+        
+        //delete results data
+        $all_result_ids = $wpdb->get_col("select id from ". QUIZ_DB_TABLE_RESULTS. " WHERE quiz_id=$id"  );
+        
+        foreach($all_result_ids as $single):
+            $wpdb->query("DELETE FROM " . QUIZ_DB_TABLE_RESULT_DATA . " WHERE result_id = $single ;");            
+        endforeach;
+        
+        //delete results 
+         $wpdb->query("DELETE FROM " . QUIZ_DB_TABLE_RESULTS . " WHERE quiz_id = $id ;");
            
     }
     public function save() {

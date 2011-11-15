@@ -1,6 +1,7 @@
 <?php
 
-
+echo 'install page';
+if(get_option('viral_conversion_verified'))return;
 
 
   $sql_quiz_table="CREATE TABLE `" . $wpdb->prefix . "quiz` (

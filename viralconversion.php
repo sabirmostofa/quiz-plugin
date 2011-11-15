@@ -103,10 +103,17 @@ add_action("wp_ajax_quiz_sequence_handle" , "quiz_sequence_handle");
 
 // add menus
 function quiz_admin_menu() {
-    add_menu_page(QUIZ_PLUGIN_NAME, QUIZ_PLUGIN_NAME, 'administrator', QUIZ_SHORTCODE, 'quiz_admin_page_manage_quizes');
+
+    if(get_option('viral_conversion_verified')):
+        add_menu_page(QUIZ_PLUGIN_NAME, QUIZ_PLUGIN_NAME, 'administrator', QUIZ_SHORTCODE, 'quiz_admin_page_manage_quizes');
     add_submenu_page(QUIZ_SHORTCODE, 'Manage Quizzes', 'Manage Quizzes', 'administrator', QUIZ_SHORTCODE , 'quiz_admin_page_manage_quizes');
     add_submenu_page(QUIZ_SHORTCODE, 'Add Quiz', 'Add Quiz', 'administrator', QUIZ_SHORTCODE . '-addquiz', 'quiz_admin_page_add_quiz');
     add_submenu_page(QUIZ_SHORTCODE, 'Options', 'Options', 'administrator', QUIZ_SHORTCODE . '-options', 'quiz_admin_page_options');
+   
+    else:
+         add_menu_page(QUIZ_PLUGIN_NAME, QUIZ_PLUGIN_NAME, 'administrator', QUIZ_SHORTCODE, 'quiz_admin_page_activate');
+
+    endif;
     quiz_handle_forms(); 
     add_action("admin_footer" , "quiz_admin_footer");
 }

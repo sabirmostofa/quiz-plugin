@@ -272,6 +272,10 @@ function quiz_admin_page_options() {
    require QUIZ_PATH . "/lib/admin/views/options.php";
    echo ob_get_clean();
 }
+function quiz_admin_page_activate() {
+   require QUIZ_PATH . "/lib/admin/views/activate.php";
+  
+}
 
 function quiz_admin_page_add_quiz() {
    $quiz=false;
