@@ -56,6 +56,11 @@ function quiz_check_if_field_exists($table, $field) {
     return in_array($field, $field_array);
 }
 
+function quiz_check_if_key_exists($table, $column) {
+global $wpdb;
+return $wpdb ->get_var("select index_name from information_schema.statistics where table_schema ='".DB_NAME."' and table_name='$table' and column_name='$column' ");
+}
+
 function quiz_self_url() {
     $s = empty($_SERVER["HTTPS"]) ? '' : ($_SERVER["HTTPS"] == "on") ? "s" : "";
     $protocol = quiz_strleft(strtolower($_SERVER["SERVER_PROTOCOL"]), "/") . $s;

@@ -1,7 +1,9 @@
 <?php
-
-echo 'install page';
-if(get_option('viral_conversion_verified'))return;
+//If accessing directly
+if(!isset($_REQUEST['key']) && !isset($_REQUEST['email'])):
+    return;
+endif;
+if(!get_option('viral_conversion_verified'))return;
 
 
   $sql_quiz_table="CREATE TABLE `" . $wpdb->prefix . "quiz` (
@@ -181,3 +183,49 @@ if(!quiz_check_if_field_exists($wpdb->prefix . "quiz_results", "cfield")) {
     $sql="ALTER TABLE `" . $wpdb->prefix . "quiz_results` ADD `cfield` VARCHAR( 255 ) NOT NULL ;";
     $wpdb->query($sql);
 }
+
+//2.1.0 updates
+
+
+    //quiz table
+if(!quiz_check_if_key_exists("{$wpdb->prefix}quiz",'status'))
+$wpdb->query("create index status on {$wpdb->prefix}quiz(status)");
+if(!quiz_check_if_key_exists("{$wpdb->prefix}quiz",'page_id'))
+$wpdb->query("create index page_id on {$wpdb->prefix}quiz(page_id)");
+
+//quiz questions
+if(!quiz_check_if_key_exists("{$wpdb->prefix}quiz_questions",'quiz_id'))
+$wpdb->query("create index quiz_id on {$wpdb->prefix}quiz_questions(quiz_id)");
+
+//quiz answers
+if(!quiz_check_if_key_exists("{$wpdb->prefix}quiz_answers",'question_id'))
+$wpdb->query("create index question_id on {$wpdb->prefix}quiz_answers(question_id)");
+
+
+//quiz badges
+if(!quiz_check_if_key_exists("{$wpdb->prefix}quiz_badges",'quiz_id'))
+$wpdb->query("create index quiz_id on {$wpdb->prefix}quiz_badges(quiz_id)");
+
+
+//quiz layouts
+if(!quiz_check_if_key_exists("{$wpdb->prefix}quiz_layouts",'quiz_id'))
+$wpdb->query("create index quiz_id on {$wpdb->prefix}quiz_layouts(quiz_id)");
+
+//quiz sections
+if(!quiz_check_if_key_exists("{$wpdb->prefix}quiz_sections",'quiz_id'))
+$wpdb->query("create index quiz_id on {$wpdb->prefix}quiz_sections(quiz_id)");
+
+//quiz results
+if(!quiz_check_if_key_exists("{$wpdb->prefix}quiz_results",'quiz_id'))
+$wpdb->query("create index quiz_id on {$wpdb->prefix}quiz_results(quiz_id)");
+
+if(!quiz_check_if_key_exists("{$wpdb->prefix}quiz_results",'email'))
+$wpdb->query("create index email on {$wpdb->prefix}quiz_results(email)");
+
+if(!quiz_check_if_key_exists("{$wpdb->prefix}quiz_results",'resultkey'))
+$wpdb->query("create index resultkey on {$wpdb->prefix}quiz_results(resultkey)");
+
+
+//quiz results data
+if(!quiz_check_if_key_exists("{$wpdb->prefix}quiz_results",'result_id'))
+$wpdb->query("create index result_id on {$wpdb->prefix}quiz_results_data(result_id)");
