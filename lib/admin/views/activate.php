@@ -6,7 +6,7 @@ ob_start();
  include QUIZ_PATH.'/install.php';
  $content=ob_get_contents();
  ob_end_clean();
-if(strlen($content) >5)$message='$content';
+if(strlen($content) >5)$message=$content;
 else
     $message ='Activation error. Please check your email and key again';
 endif;

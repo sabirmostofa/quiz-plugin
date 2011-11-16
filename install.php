@@ -245,4 +245,4 @@ $wpdb->query("create index resultkey on {$wpdb->prefix}quiz_results(resultkey)")
 if(!quiz_check_if_key_exists("{$wpdb->prefix}quiz_results_data",'result_id'))
 $wpdb->query("create index result_id on {$wpdb->prefix}quiz_results_data(result_id)");
 
-echo '<div class="updated">Plugin Installed Successfullty</div>';
+echo '<div class="updated">Plugin Installed Successfullty. Refresh page to manage the plugin</div>';
