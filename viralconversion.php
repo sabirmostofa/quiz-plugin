@@ -16,6 +16,7 @@ define("QUIZ_SHORTCODE", "viralconversion");
 define("QUIZ_PLUGIN_FOLDER" , "viralconversion");
 define("QUIZ_PLUGIN_NAME", "Viral Conversion");
 
+
 // base paths and urls
 define("QUIZ_PATH", dirname(__FILE__));
 define("QUIZ_URL", WP_PLUGIN_URL . "/" . QUIZ_PLUGIN_FOLDER);
@@ -58,8 +59,8 @@ else {
 
 function quiz_activate() {
     global $wpdb;
-    
-    require_once QUIZ_PATH . "/install.php";   
+    return;
+    //require_once QUIZ_PATH . "/install.php";   
 }
 register_activation_hook(__FILE__ , "quiz_activate");
 

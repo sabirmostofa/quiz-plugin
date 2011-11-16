@@ -1,10 +1,16 @@
 <?php
 //Activate the plugin.
 if(isset($_REQUEST['submit'])):
- 
-    include QUIZ_PATH.'/install.php';
-
+ if(!wp_verify_nonce($_POST['activate_nonce'],'quiz_action_activate_nonce')) die("Nonce verification failed");
+ob_start();  
+ include QUIZ_PATH.'/install.php';
+ $content=ob_get_contents();
+ ob_end_clean();
+if(strlen($content) >5)$message='$content';
+else
+    $message ='Activation error. Please check your email and key again';
 endif;
+
 $message = isset($message)? $message:'';
 ?>
 <div class="wrap">
@@ -23,6 +29,7 @@ $message = isset($message)? $message:'';
 
     <br/>
     <input class="button-primary" type="submit" name="submit" value="Activate Now"/>
+    <?php wp_nonce_field('quiz_action_activate_nonce','activate_nonce'); ?>
     </form>
     </div>
 </div>

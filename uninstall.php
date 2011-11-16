@@ -12,7 +12,7 @@ foreach($quizTables as $quizTable) {
 }
 
 // remove all options
-$quizOptions=array('quiz_option_delete_at_deactivate');
+$quizOptions=array('quiz_option_delete_at_deactivate','viral_conversion_verified');
 foreach($quizOptions as $quizOption) {
     delete_option($quizOption);
 }
