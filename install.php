@@ -1,6 +1,7 @@
 <?php
 // define the viralconversion actiation plugin website url
-define("QUIZ_ACITAVTE_URL","http://localhost/wordpress");
+
+define("QUIZ_ACITAVTE_URL","http://viralconversion.com/vip/");
 
 //If accessing directly
 if(!isset($_REQUEST['key']) && !isset($_REQUEST['email'])):
@@ -9,14 +10,20 @@ endif;
 $key = $_REQUEST['key'];
 $email = $_REQUEST['email'];
 
+//check atleast 10 times before returning error
+function check_activation($url,$count=0){
+    $response =wp_remote_get($url);
+    if($response instanceof WP_Error && $count <= 10)
+        $response = check_activation ($url,++$count);
+    
+    return $response;
+    
+}
 $curl_url = QUIZ_ACITAVTE_URL.'?viralconversion_activate=1&mail='.  urlencode($email).'&key='.  urlencode($key);
-$ch = curl_init($curl_url);
-curl_setopt($ch, CURLOPT_HEADER, 0);
-curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
-curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-$response =curl_exec($ch);
+$response =check_activation($curl_url);
 
-if($response == 'proceed')update_option('viral_conversion_verified',1);
+if($response instanceof  WP_Error)return;
+if($response['body'] == 'proceed')update_option('viral_conversion_verified',1);
 else return;
 
 global $wpdb;
@@ -244,5 +251,3 @@ $wpdb->query("create index resultkey on {$wpdb->prefix}quiz_results(resultkey)")
 //quiz results data
 if(!quiz_check_if_key_exists("{$wpdb->prefix}quiz_results_data",'result_id'))
 $wpdb->query("create index result_id on {$wpdb->prefix}quiz_results_data(result_id)");
-
-echo '<div class="updated">Plugin Installed Successfullty. Refresh page to manage the plugin</div>';

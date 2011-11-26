@@ -9,10 +9,21 @@
         <span class="small">Available Code: <?php quiz_insert_tag_ht('title', 'quiz-title'); ?></span></div>
         <input class="text required" type="text" tabindex="1"  name="title" id="title" value="<?php if($aweber) echo db_to_textfield($aweber->getTitle()); ?>" />
         
-        <div class="dlabel">Skip Optin Page</div>
+        <div class="dlabel">Hide Aweber Form <a href="#" id="hide" style="display:none;">Hide</a><a href="#" id="show">?</a></div>
          <input type="checkbox"  tabindex="2"  value="y" name="skip_optin" id="skip_optin" <?php $ch=false; if($aweber && $aweber->shouldSkipOptin()) $ch=true; if($ch) echo 'checked="checked"'; ?> />
          
-
+		 <div class="target" style="display:none;border:1px solid #aaa;padding:10px;margin-top:5px;">
+			<p style="padding:0;margin:0;">You can use pretty much any Email Service Provider by simply copying and pasting your HTML optin form code into the HTML tab below. Just be sure to include a hidden field with a value of {result-link}. This will ensure that each user's custom result link is submitted to your autoresponder service. You will most likely need to create a custom variable from within your Email Service Provider account to accept this custom variable. If you are using AWeber, you will need to create a custom variable in AWeber called result-link. That will ensure that you can email the custom result link to your subscribers in their first autoresponder email.
+			<br/>
+			<br/>Here is an example hidden input field:
+			<br/>
+			<br/>&lt;input type="hidden" id="result-link" value="{result-link}"/&gt;
+			<br/>
+			<br/>You can also direct link to your results page using the result link variable. Here is an example:
+			<br/>
+			<br/>&lt;a href="{result-link}"&gt;Click here to view your results&lt;/a&gt;
+			</p>
+		 </div>
          <div class="dlabel">Display Page Title</div>
          <input type="checkbox"  tabindex="2"  value="y" name="display_title" id="display_title" <?php $ch=true; if($aweber && !$aweber->shouldDisplayTitle()) $ch=false; if($ch) echo 'checked="checked"'; ?> />
          
@@ -25,9 +36,9 @@
          if($aweber) $desc=$aweber->getContent();
          quiz_render_main_editor($desc, "content", 3); ?>
         
-         <a href="http://aweber.com/?366408" target="_blank" style="color: #00F; font-size: 105%; font-weight: bold;">Sign Up For an aWeber Account</a>
-         <div class="dlabel">aWeber List Name *<br />
-         <span class="small">Listname of the list of your aweber account where all the optin data for this quiz must be submitted</span></div>
+         <a href="http://robjones.aweber.com/" target="_blank" style="color: #00F; font-size: 105%; font-weight: bold;">Sign Up For an AWeber Account</a>
+         <div class="dlabel">AWeber List Name *<br />
+         <span class="small">Listname from your AWeber account</span></div>
          <input type="text required" name="listname" tabindex="4"  id="listname" value="<?php if($aweber) echo $aweber->getListname(); ?>" />
          
          <div class="dlabel">First Name Label *<br />
@@ -105,6 +116,22 @@
     }
     jQuery(document).ready(function() {
         updateCustomFieldPanel();
+    });
+    jQuery(document).ready(function() {
+		jQuery(".target").hide();
+		jQuery("#hide").hide();
+		
+		jQuery("#hide").click(function(){
+         jQuery(".target").hide();
+		 jQuery("#hide").hide();
+		 jQuery("#show").show();
+      });
+
+      jQuery("#show").click(function(){
+         jQuery(".target").show();
+		 jQuery("#show").hide();
+		 jQuery("#hide").show();
+      });
     });
 </script>
 <?php quiz_pageadmin_footer(); ?> 

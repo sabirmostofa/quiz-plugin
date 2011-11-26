@@ -25,13 +25,13 @@
             <td valign="top"><?php echo $quiz->getNumSections(); ?></td>
             <td valign="top"><?php echo $quiz->getNumBadges(); ?></td>
             <td valign="top"><?php echo $quiz->isPublished()?"Publish":"Draft"; ?></td>
-            <td valign="top"><?php
+            <td valign="top"><a href="<?php echo quiz_get_admin_url(array("task" => "editquiz" , "quizid" => $quiz->getId())); ?>">Edit</a> | <a target="_blank" href="<?php echo get_permalink($quiz->getPageId()); ?>">View</a> | <?php
              if($quiz->isPublished()):
              ?>
              <a href="<?php echo quiz_get_admin_url(array("unpublishquiz" => $quiz->getId()) , array("kpage", "task", "quizid")); ?>">Unpublish</a> | 
              <?php else: ?>
              <a href="<?php echo quiz_get_admin_url(array("publishquiz" => $quiz->getId()), array("kpage",  "task", "quizid")); ?>">Publish</a> | 
-             <?php endif; ?><a href="<?php echo quiz_get_admin_url(array("task" => "editquiz" , "quizid" => $quiz->getId())); ?>">Edit</a> | <a href="<?php echo quiz_get_admin_url(array("deletequiz" => $quiz->getId()), array("kpage")); ?>" onclick="return quiz_delete_confirm()">Delete</a> | <a target="_blank" href="<?php echo get_permalink($quiz->getPageId()); ?>">View</a></td>
+             <?php endif; ?><a href="<?php echo quiz_get_admin_url(array("deletequiz" => $quiz->getId()), array("kpage")); ?>" onclick="return quiz_delete_confirm()">Delete</a></td>
         </tr>
         </tbody>
     </table>

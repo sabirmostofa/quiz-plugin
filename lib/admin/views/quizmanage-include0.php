@@ -59,7 +59,7 @@ if($quiz->getPageId())
                 <a href="<?php echo $aweberConfigureLink; ?>">Configure</a>
             </td>
         </tr>
-        <tr class="alternate">
+        <tr class="alternate" style="display:none;">
             <td valign="top">Thank You</td>
             <td valign="top"><?php if($thankyouConfigured) echo 'Yes'; else echo 'No'; ?></td>
             <td valign="top">--</td>
@@ -67,7 +67,7 @@ if($quiz->getPageId())
                 <a href="<?php echo $thankyouConfigureLink; ?>">Configure</a> | <a target="_blank"  href="<?php echo $thankyouViewLink; ?>">View</a>
             </td>
         </tr>
-        <tr >
+        <tr style="display:none;">
             <td valign="top">Thank You 2</td>
             <td valign="top"><?php if($thankyou2Configured) echo 'Yes'; else echo 'No'; ?></td>
             <td valign="top">--</td>
