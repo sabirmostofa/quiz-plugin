@@ -34,7 +34,9 @@
         <form method="post" action="http://www.aweber.com/scripts/addlead.pl" onsubmit="return aweberformcheck();">
 
             <input type="hidden" name="listname" value="<?php echo $aweber->getListname(); ?>" />
+           <!--
             <input type="hidden" name="redirect" value="<?php echo $thankyouUrl; ?>" />
+            -->
             <input type="hidden" name="meta_redirect_onlist" value="<?php echo $thankyouUrl2; ?>" />
             <input type="hidden" name="meta_required" value="email" />
             <input type="hidden" name="meta_message" value="1" />

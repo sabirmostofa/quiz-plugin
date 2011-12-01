@@ -3,7 +3,7 @@
 Plugin Name: Viral Conversion
 Plugin URI: http://www.viralconversion.com
 Description: 
-Version: 2.1.2
+Version: 2.2.0
 Author: Rob Jones
 Author URI: http://rob-jones.com
 */
