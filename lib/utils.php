@@ -71,3 +71,39 @@ function quiz_self_url() {
 function quiz_strleft($s1, $s2) {
     return substr($s1, 0, strpos($s1, $s2));
 }
+
+
+//
+add_filter( 'rewrite_rules_array','vc_insert_rewrite_rules' );
+add_filter( 'query_vars','vc_insert_query_vars' );
+add_action( 'wp_loaded','vc_flush_rules' );
+
+// flush_rules() if our rules are not yet included
+function vc_flush_rules(){
+	$rules = get_option( 'rewrite_rules' );
+
+	if ( ! isset( $rules['/?(.*)/(\d*)/question$'] ) || ! isset($rules['/?(.*)/optin']) 
+                
+                || isset( $rules['/?(.*)/(\d*)/section$'] ) ) {
+		global $wp_rewrite;
+	   	$wp_rewrite->flush_rules();
+	}
+}
+
+// Adding a new rule
+function vc_insert_rewrite_rules( $rules )
+{
+	$newrules = array();
+	$newrules['/?(.*)/(\d*)/question$'] = 'index.php?pagename=$matches[1]&question=$matches[2]';
+	$newrules['/?(.*)/optin'] = 'index.php?pagename=$matches[1]';
+	$newrules['/?(.*)/(\d*)/section$'] = 'index.php?pagename=$matches[1]&section=$matches[2]';
+	$newrules['/?(.*)/result/(\d*)'] = 'index.php?pagename=$matches[1]&result=$matches[2]';
+	return $newrules + $rules;
+}
+
+// Adding the id var so that WP recognizes it
+function vc_insert_query_vars( $vars )
+{
+    $vars = array_merge($vars, array('question','section','result'));
+    return $vars;
+}
