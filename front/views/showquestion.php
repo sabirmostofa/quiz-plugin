@@ -8,6 +8,9 @@
           $singleAnswer=self::$question->isSingleAnswerType();
           $nextAction=self::getNextAction();
           $answers=self::$question->getAnswers();
+          
+          //skipping optin
+
         ?>
         <?php if($answers): ?>
         <form method="post" action="<?php if($nextAction) echo $nextAction["url"]; ?>">

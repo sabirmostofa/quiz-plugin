@@ -737,6 +737,20 @@
            $wpdb->update(QUIZ_DB_TABLE_RESULTS, $d, array("id" => $resId) , array("%d", "%s", "%s", "%s" , "%s", "%s"), "%d");
 
           $resultLink=get_permalink(self::$quiz->getPageId()) . "result/" . $resId;
+          
+                   //skipping optin
+              $ar = get_option('vc_skipped_optin');
+                 if(!$ar)$ar= array();
+                 foreach($ar as $single){
+                     if($single == self::$quiz->getId()){                         
+                          wp_redirect($resultLink);
+                          exit;
+                 }
+                 
+                 }
+             
+              
+          
 
           $aweber=self::$quiz->getAweber();
           $skipOptin=true;
@@ -746,7 +760,7 @@
             }
             self::$title=textarea_db_to_html(self::processString($aweber->getTitle() , array("{quiz-title}" => self::$quiz->getTitle())));
             self::$displayTitle=$aweber->shouldDisplayTitle();
-          }
+          }   
           require self::getViewsFolder() . '/showoptin.php';
           
       }

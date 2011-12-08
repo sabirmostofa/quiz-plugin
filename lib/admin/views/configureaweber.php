@@ -1,3 +1,15 @@
+<?php
+$checked_perma=false;
+         $ar = get_option('vc_skipped_optin');
+                 if(!$ar)$ar= array();
+                 foreach($ar as $single){
+                     if($single == $_GET['quizid']){
+                         $checked_perma=true;
+                 }
+                 
+                 }
+?>
+
 <div class="wrap">
     <h2><?php echo quiz_get_admin_title(); ?></h2>
     <?php quiz_render_messages(); ?>
@@ -37,7 +49,12 @@
          quiz_render_main_editor($desc, "content", 3); ?>
         
          <a href="http://robjones.aweber.com/" target="_blank" style="color: #00F; font-size: 105%; font-weight: bold;">Sign Up For an AWeber Account</a>
-              <div class="dlabel">Confirmation Page*:<br />
+        <br/>
+        <br/>
+         <input type="checkbox" name='skip_optin_perma'  <?php if($checked_perma)echo 'checked="checked"' ?> style="float:left" /><div style="float:left;font-weight: bold;">Skip Optin Page(will take the users to Result page directly)   </div>  
+         <div style="clear:both"></div>
+         
+         <div class="dlabel">Confirmation Page*:<br />
          <span class="small">Url of your confirmation page</span></div>
          <input type="text required" name="confirmation_page" tabindex="4"  id="confirm_page" value="<?php if($quiz) echo $quiz->getThankyou(); ?>" />
          
