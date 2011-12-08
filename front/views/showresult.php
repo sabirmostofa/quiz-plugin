@@ -1,6 +1,7 @@
 <div class="quiz-container quiz-container-result">
     <div class="result-content">
         <?php echo wysiwyg_db_to_html($resultContent); ?>  
+        <?php// echo  $resId=$_SESSION["quizresultid" . self::$quiz->getId()]; ?>
     </div>
         
         <?php if($showShareLinks): ?>

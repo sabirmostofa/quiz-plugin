@@ -570,6 +570,19 @@ function quiz_handle_form_configureaweber() {
     $_POST["custom_field_type"]=$cft;
 
     $q=new QuizAweber($_POST);
+    
+    // Saving the data to the quiz table adding two extra fields
+    
+    $data = array(
+        'id'=>  mysql_escape_string($_GET['quizid']),
+    'thankyou' => mysql_escape_string(trim($_POST['confirmation_page'])),
+     'thankyou2' =>mysql_escape_string(trim($_POST['alreadyin_page']) )
+    );
+    
+    $quiz = new Quiz($data);
+    $quiz ->save();
+    
+    
     if($q->save()) {
         //saved aweber, edit quiz
         QuizMessages::addMessage(new QuizMessage(QuizMessages::TYPE_AWEBER_UPDATE_SUCCESS , "Aweber configured successfully" , $q->getId(), QuizMessages::SUCCESS , true));

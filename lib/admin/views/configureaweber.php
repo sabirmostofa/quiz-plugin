@@ -37,6 +37,14 @@
          quiz_render_main_editor($desc, "content", 3); ?>
         
          <a href="http://robjones.aweber.com/" target="_blank" style="color: #00F; font-size: 105%; font-weight: bold;">Sign Up For an AWeber Account</a>
+              <div class="dlabel">Confirmation Page*:<br />
+         <span class="small">Url of your confirmation page</span></div>
+         <input type="text required" name="confirmation_page" tabindex="4"  id="confirm_page" value="<?php if($quiz) echo $quiz->getThankyou(); ?>" />
+         
+           <div class="dlabel">Already on list page*:<br />
+         <span class="small">Url of the page if the email is already on the list</span></div>
+         <input type="text required" name="alreadyin_page" tabindex="4"  id="confirm_page" value="<?php if($quiz) echo $quiz->getThankyou2(); ?>" />
+         
          <div class="dlabel">AWeber List Name *<br />
          <span class="small">Listname from your AWeber account</span></div>
          <input type="text required" name="listname" tabindex="4"  id="listname" value="<?php if($aweber) echo $aweber->getListname(); ?>" />
